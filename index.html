@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Career Roadmap Analyzer</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <h1>Career Roadmap Analyzer</h1>
+    <p class="subtitle">
+      Analyze your skills and become job-ready
+    </p>
+
+    <div class="card">
+
+      <label>Enter Your Skills</label>
+      <input
+        type="text"
+        id="skillsInput"
+        placeholder="Example: HTML, CSS"
+      >
+
+      <label>Select Target Role</label>
+      <select id="roleSelect">
+        <option value="frontend">Frontend Developer</option>
+        <option value="backend">Backend Developer</option>
+        <option value="fullstack">Full Stack Developer</option>
+        <option value="dataAnalyst">Data Analyst </option>
+
+<option value="uiux">UI/UX Designer
+</option>
+
+  
+<option value="aiEngineer">
+  AI Engineer
+</option>
+
+<option value="cybersecurity">
+  Cybersecurity Analyst
+</option>
+      </select>
+
+      <button onclick="analyzeSkills()">
+        Analyze Skills
+      </button>
+
+    </div>
+
+    <div id="result" class="result-card hidden">
+
+      <h2>Analysis Result</h2>
+
+      <p id="readiness"></p>
+      <canvas id="skillChart"></canvas>
+
+      <div>
+        <h3>Missing Skills</h3>
+        <ul id="missingSkills"></ul>
+      </div>
+
+      <div>
+        <h3>Suggested Roadmap</h3>
+        <ol id="roadmap"></ol>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

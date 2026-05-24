@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #0f172a;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 90%;
+  max-width: 700px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 40px;
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #cbd5e1;
+}
+
+.card,
+.result-card {
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 8px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 17px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #2563eb;
+}
+
+.hidden {
+  display: none;
+}
+
+h2 {
+  margin-bottom: 15px;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #93c5fd;
+}
+
+ul,
+ol {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+canvas{
+    margin-top:20px;
+}
+
+#readiness {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #22c55e;
+}
