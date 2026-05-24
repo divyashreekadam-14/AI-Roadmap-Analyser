@@ -64,13 +64,7 @@ An intelligent career guidance web application that analyzes user skills, calcul
 
 ## 📷 Project Preview
 
-(Add screenshots here later)
+<img width="1109" height="419" alt="Screenshot (11)" src="https://github.com/user-attachments/assets/9f29a8a8-9b6a-431b-b4b6-8b64c7fed3bd" />
+<img width="886" height="903" alt="Screenshot (12)" src="https://github.com/user-attachments/assets/36e34d0a-3d39-4a06-ad57-25cab6158751" />
 
----
 
-## ▶️ How To Run Locally
-
-1. Clone the repository
-
-```bash
-git clone YOUR_REPOSITORY_LINK
