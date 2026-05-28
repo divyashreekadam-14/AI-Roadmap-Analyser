@@ -1,59 +1,50 @@
+console.log("BUTTON CLICKED");
+
+console.log(
+document.getElementById("skillsInput").value
+);
+
+console.log(
+document.getElementById("roleSelect").value
+);
+// ==========================
+// ROLE SKILLS DATABASE
+// ==========================
+
 const roleSkills = {
 
   frontend: [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Git"
+    "HTML","CSS","JavaScript","React","Git"
   ],
 
   backend: [
-    "Node.js",
-    "Express",
-    "MongoDB",
-    "API",
-    "Git"
+    "Node.js","Express","MongoDB","API","Git"
   ],
 
   fullstack: [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Node.js",
-    "Express",
-    "MongoDB",
-    "Git"
+    "HTML","CSS","JavaScript","React",
+    "Node.js","Express","MongoDB","Git"
   ],
 
   dataanalyst: [
-    "Excel",
-    "SQL",
-    "Python",
-    "Power BI",
-    "Statistics"
+    "Excel","SQL","Python",
+    "Power BI","Statistics"
   ],
 
   uiux: [
-    "Figma",
-    "Wireframing",
-    "Prototyping",
-    "User Research",
+    "Figma","Wireframing",
+    "Prototyping","User Research",
     "Design Systems"
   ],
 
   aiengineer: [
-    "Python",
-    "Machine Learning",
-    "Deep Learning",
-    "TensorFlow",
+    "Python","Machine Learning",
+    "Deep Learning","TensorFlow",
     "Data Science"
   ],
 
   cybersecurity: [
-    "Networking",
-    "Linux",
+    "Networking","Linux",
     "Ethical Hacking",
     "Cryptography",
     "Security Tools"
@@ -61,8 +52,10 @@ const roleSkills = {
 };
 
 
+// ==========================
+// ROLE TITLES
+// ==========================
 
-// Career titles
 const roleTitles = {
 
   frontend: "Frontend Developer",
@@ -81,15 +74,23 @@ const roleTitles = {
 };
 
 
+// ==========================
+// GLOBAL CHART VARIABLE
+// ==========================
 
-// Global chart variable
 let skillChart;
 
 
+// ==========================
+// MAIN FUNCTION
+// ==========================
 
 function analyzeSkills() {
 
-  // Get user input
+  // --------------------------
+  // GET INPUTS
+  // --------------------------
+
   const skillsInput =
     document
       .getElementById("skillsInput")
@@ -102,159 +103,218 @@ function analyzeSkills() {
 
 
 
-  // Convert skills into array
+  // --------------------------
+  // VALIDATION
+  // --------------------------
+
+  if (!skillsInput.trim()) {
+
+    alert("Please enter skills.");
+
+    return;
+
+  }
+
+  if (!roleSkills[selectedRole]) {
+
+    alert("Please select a role.");
+
+    return;
+
+  }
+
+
+
+  // --------------------------
+  // CONVERT USER SKILLS
+  // --------------------------
+
   const userSkills =
     skillsInput
       .split(",")
       .map(skill =>
         skill.trim().toLowerCase()
+      )
+      .filter(skill =>
+        skill !== ""
       );
 
 
 
-  // Get required skills
+  // --------------------------
+  // REQUIRED SKILLS
+  // --------------------------
+
   const requiredSkills =
     roleSkills[selectedRole];
 
 
 
-  // Missing skills
+  // --------------------------
+  // FIND MISSING SKILLS
+  // --------------------------
+
   const missingSkills =
     requiredSkills.filter(skill =>
+
       !userSkills.includes(
         skill.toLowerCase()
       )
+
     );
 
 
 
-  // Completed skills
+  // --------------------------
+  // COMPLETED SKILLS
+  // --------------------------
+
   const completedSkills =
     requiredSkills.length -
     missingSkills.length;
 
 
 
-  // Readiness percentage
+  // --------------------------
+  // READINESS %
+  // --------------------------
+
   const readiness =
     Math.round(
+
       (completedSkills /
         requiredSkills.length) * 100
+
     );
-// Show result section
-document
-  .getElementById("result")
-  .classList.remove("hidden");
 
 
 
-// ==========================
-// LEARNING TIMELINE
-// ==========================
+  // --------------------------
+  // SHOW RESULT SECTION
+  // --------------------------
 
-let timeline = "";
-
-if (missingSkills.length === 0) {
-
-  timeline =
-    "You are already job-ready!";
-
-}
-
-else if (missingSkills.length <= 2) {
-
-  timeline =
-    "Estimated learning time: 1-2 months";
-
-}
-
-else if (missingSkills.length <= 4) {
-
-  timeline =
-    "Estimated learning time: 3-4 months";
-
-}
-
-else {
-
-  timeline =
-    "Estimated learning time: 5-6 months";
-
-}
+  document
+    .getElementById("result")
+    .classList.remove("hidden");
 
 
 
-// ==========================
-// SHOW READINESS
-// ==========================
+  // ==========================
+  // LEARNING TIMELINE
+  // ==========================
 
-document
-  .getElementById("readiness")
-  .innerText =
+  let timeline = "";
 
-  `You are ${readiness}% ready for ${roleTitles[selectedRole]}`;
+  if (missingSkills.length === 0) {
 
+    timeline =
+      "You are already job-ready! 🚀";
 
+  }
 
+  else if (missingSkills.length <= 2) {
 
+    timeline =
+      "Estimated learning time: 1-2 months";
 
-// ==========================
-// SHOW TIMELINE
-// ==========================
+  }
 
-document
-  .getElementById("timeline")
-  .innerText = timeline;
+  else if (missingSkills.length <= 4) {
 
+    timeline =
+      "Estimated learning time: 3-4 months";
 
+  }
 
+  else {
 
+    timeline =
+      "Estimated learning time: 5-6 months";
 
-// ==========================
-// SHOW MISSING SKILLS
-// ==========================
-
-const missingSkillsList =
-  document.getElementById(
-    "missingSkills"
-  );
-
-missingSkillsList.innerHTML = "";
+  }
 
 
 
-missingSkills.forEach(skill => {
+  // ==========================
+  // SHOW READINESS
+  // ==========================
 
-  const li =
-    document.createElement("li");
+  document
+    .getElementById("readiness")
+    .innerText =
 
-  li.innerText = skill;
-
-  missingSkillsList.appendChild(li);
-
-});
-
-// ==========================
-// PERSONALIZED FLOWCHART
-// ==========================
-
-const flowchart =
-  document.getElementById(
-    "flowchart"
-  );
+    `You are ${readiness}% ready for ${roleTitles[selectedRole]}`;
 
 
 
-// Clear old flowchart
-flowchart.innerHTML = "";
+  // ==========================
+  // SHOW TIMELINE
+  // ==========================
+
+  document
+    .getElementById("timeline")
+    .innerText =
+    timeline;
 
 
 
-// Create flow steps
-missingSkills.forEach(
-  (skill, index) => {
+  // ==========================
+  // MISSING SKILLS
+  // ==========================
 
-    // Skill box
+  const missingSkillsList =
+    document.getElementById(
+      "missingSkills"
+    );
+
+  // CLEAR OLD DATA
+
+  missingSkillsList.innerHTML = "";
+
+
+
+  if (missingSkills.length === 0) {
+
+    missingSkillsList.innerHTML =
+      "<li>No missing skills 🎉</li>";
+
+  }
+
+  else {
+
+    missingSkills.forEach(skill => {
+
+      const li =
+        document.createElement("li");
+
+      li.innerText = skill;
+
+      missingSkillsList
+        .appendChild(li);
+
+    });
+
+  }
+
+
+
+  // ==========================
+  // PERSONALIZED FLOWCHART
+  // ==========================
+
+  const flowchart =
+    document.getElementById(
+      "flowchart"
+    );
+
+  // CLEAR OLD FLOWCHART
+
+  flowchart.innerHTML = "";
+
+
+
+  if (missingSkills.length === 0) {
+
     const step =
       document.createElement("div");
 
@@ -262,32 +322,58 @@ missingSkills.forEach(
       "flow-step"
     );
 
-    step.innerText = skill;
+    step.innerText =
+      "Job Ready 🚀";
 
-    flowchart.appendChild(step);
+    flowchart
+      .appendChild(step);
+
+  }
+
+  else {
+
+    missingSkills.forEach(
+      (skill, index) => {
+
+        const step =
+          document.createElement("div");
+
+        step.classList.add(
+          "flow-step"
+        );
+
+        step.innerText =
+          skill;
+
+        flowchart
+          .appendChild(step);
 
 
 
-    // Add arrow
-    if (
-      index <
-      missingSkills.length - 1
-    ) {
+        if (
+          index <
+          missingSkills.length - 1
+        ) {
 
-      const arrow =
-        document.createElement("div");
+          const arrow =
+            document.createElement("div");
 
-      arrow.classList.add(
-        "arrow"
-      );
+          arrow.classList.add(
+            "arrow"
+          );
 
-      arrow.innerHTML = "➜";
+          arrow.innerHTML =
+            "➜";
 
-      flowchart.appendChild(
-        arrow
-      );
-    }
-});
+          flowchart
+            .appendChild(arrow);
+
+        }
+
+      });
+
+  }
+
 
 
   // ==========================
@@ -307,16 +393,22 @@ missingSkills.forEach(
 
     const matchedSkills =
       skillsForRole.filter(skill =>
+
         userSkills.includes(
           skill.toLowerCase()
         )
+
       );
 
 
 
     const matchPercentage =
-      (matchedSkills.length /
-        skillsForRole.length) * 100;
+      Math.round(
+
+        (matchedSkills.length /
+          skillsForRole.length) * 100
+
+      );
 
 
 
@@ -327,30 +419,35 @@ missingSkills.forEach(
       percentage: matchPercentage
 
     });
+
   }
 
 
 
-  // Sort by highest match
+  // SORT DESCENDING
+
   recommendations.sort(
     (a, b) =>
-      b.percentage - a.percentage
+      b.percentage -
+      a.percentage
   );
 
 
 
-  // Display recommendations
+  // DISPLAY TOP 3
+
   const recommendationList =
     document.getElementById(
       "careerRecommendations"
     );
 
-  recommendationList.innerHTML = "";
+  recommendationList.innerHTML =
+    "";
 
 
 
   recommendations
-    .slice(0, 3)
+    .slice(0,3)
     .forEach(item => {
 
       const li =
@@ -358,12 +455,12 @@ missingSkills.forEach(
 
       li.innerText =
 
-        `${roleTitles[item.role]} - ${item.percentage.toFixed(0)}% Match`;
+        `${roleTitles[item.role]} - ${item.percentage}% Match`;
 
-      recommendationList.appendChild(li);
+      recommendationList
+        .appendChild(li);
 
     });
-
 
 
 
@@ -378,7 +475,8 @@ missingSkills.forEach(
 
 
 
-  // Destroy old chart
+  // DESTROY OLD CHART
+
   if (skillChart) {
 
     skillChart.destroy();
@@ -387,50 +485,67 @@ missingSkills.forEach(
 
 
 
-  // Create new chart
-  skillChart = new Chart(ctx, {
+  // CREATE NEW CHART
 
-    type: "doughnut",
+  skillChart =
+    new Chart(ctx, {
 
-    data: {
+      type: "doughnut",
 
-      labels: [
-        "Completed Skills",
-        "Missing Skills"
-      ],
+      data: {
 
-      datasets: [{
+        labels: [
 
-        data: [
-          completedSkills,
-          missingSkills.length
+          "Completed Skills",
+
+          "Missing Skills"
+
         ],
 
-        backgroundColor: [
-          "#00ff99",
-          "#ff4d4d"
-        ],
+        datasets: [{
 
-        borderWidth: 2
+          data: [
 
-      }]
-    },
+            completedSkills,
 
-    options: {
+            missingSkills.length
 
-      responsive: true,
+          ],
 
-      plugins: {
+          backgroundColor: [
 
-        legend: {
+            "#00ff99",
 
-          labels: {
+            "#ff4d4d"
 
-            color: "white"
+          ],
+
+          borderWidth: 2
+
+        }]
+
+      },
+
+      options: {
+
+        responsive: true,
+
+        plugins: {
+
+          legend: {
+
+            labels: {
+
+              color: "white"
+
+            }
 
           }
+
         }
+
       }
-    }
-  });
+
+    });
+
 }

@@ -222,3 +222,23 @@ body {
   color: #e2e8f0;
   min-height: 100vh;
 }
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+}
+
+.search-box button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: #38bdf8;
+  border: none;
+  cursor: pointer;
+}

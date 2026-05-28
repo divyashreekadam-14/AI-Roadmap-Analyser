@@ -1,86 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
   <title>Career Roadmap Analyzer</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet"
+        href="style.css">
 </head>
+
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <h1>Career Roadmap Analyzer</h1>
-    <p class="subtitle">
-      Analyze your skills and become job-ready
-    </p>
+  <h1>Career Roadmap Analyzer</h1>
 
-    <div class="card">
-
-      <label>Enter Your Skills</label>
-      <input
-        type="text"
-        id="skillsInput"
-        placeholder="Example: HTML, CSS"
-      >
-
-      <label>Select Target Role</label>
-      <select id="roleSelect">
-        <option value="frontend">Frontend Developer</option>
-        <option value="backend">Backend Developer</option>
-        <option value="fullstack">Full Stack Developer</option>
-        <option value="dataAnalyst">Data Analyst </option>
-
-<option value="uiux">UI/UX Designer
-</option>
-
-  
-<option value="aiEngineer">
-  AI Engineer
-</option>
-
-<option value="cybersecurity">
-  Cybersecurity Analyst
-</option>
-      </select>
-
-      <button onclick="analyzeSkills()">
-        Analyze Skills
-      </button>
-
-    </div>
-
-    <div id="result" class="result-card hidden">
-      <h3>Recommended Careers</h3>
-
-<ul id="careerRecommendations"></ul>
-<br><br>
-
-      <h2>Analysis Result</h2>
-
-      <div class=""analysis-box>
-        <h3>Your skill analysis</h3>
-        <p id="readiness"></p>
-        <p id="timeline"></p>
-</div>
-      <div>
-      <canvas id="skillChart"></canvas>
-      <h3>Persnoalized flowchart</h3>
-      <div id="flowchart"></div>
-</div>
-      <div>
-        <h3>Missing Skills</h3>
-        <ul id="missingSkills"></ul>
-      </div>
+  <p class="subtitle">
+    Analyze your skills and become job-ready
+  </p>
 
 
-    </div>
+  <div class="card">
+
+    <label>Enter Your Skills</label>
+
+    <input
+      type="text"
+      id="skillsInput"
+      placeholder="Example: HTML, CSS"
+    >
+
+
+    <label>Select Target Role</label>
+
+    <select id="roleSelect">
+
+      <option value="frontend">
+        Frontend Developer
+      </option>
+
+      <option value="backend">
+        Backend Developer
+      </option>
+
+      <option value="fullstack">
+        Full Stack Developer
+      </option>
+
+      <option value="dataanalyst">
+        Data Analyst
+      </option>
+
+      <option value="uiux">
+        UI/UX Designer
+      </option>
+
+      <option value="aiengineer">
+        AI Engineer
+      </option>
+
+      <option value="cybersecurity">
+        Cybersecurity Analyst
+      </option>
+
+    </select>
+
+
+    <button
+      type="button"
+      onclick="analyzeSkills()">
+
+      Analyze Skills
+
+    </button>
 
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
+
+
+  <div id="result"
+       class="result-card hidden">
+
+    <h3>Recommended Careers</h3>
+
+    <ul id="careerRecommendations"></ul>
+
+    <br><br>
+
+
+    <h2>Analysis Result</h2>
+
+    <div class="analysis-box">
+
+      <h3>Your Skill Analysis</h3>
+
+      <p id="readiness"></p>
+
+      <p id="timeline"></p>
+
+    </div>
+
+
+    <canvas id="skillChart"></canvas>
+
+
+    <h3>Personalized Flowchart</h3>
+
+    <div id="flowchart"></div>
+
+
+    <h3>Missing Skills</h3>
+
+    <ul id="missingSkills"></ul>
+
+  </div>
+
+</div>
+
+
+<script src=
+"https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+
+<script src="script.js"></script>
 
 </body>
 </html>
