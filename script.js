@@ -1,16 +1,5 @@
 console.log("BUTTON CLICKED");
 
-console.log(
-document.getElementById("skillsInput").value
-);
-
-console.log(
-document.getElementById("roleSelect").value
-);
-// ==========================
-// ROLE SKILLS DATABASE
-// ==========================
-
 
 // ==========================
 // ROLE SKILLS DATABASE
@@ -111,7 +100,7 @@ let skillChart;
 
 
 // ==========================
-// CASE-INSENSITIVE HELPER
+// CASE INSENSITIVE HELPER
 // ==========================
 
 function normalizeSkill(skill){
@@ -123,10 +112,6 @@ function normalizeSkill(skill){
 
 }
 
-
-// ==========================
-// AUTOCOMPLETE SUGGESTIONS
-// ==========================
 
 // ==========================
 // AUTOCOMPLETE SUGGESTIONS
@@ -178,8 +163,9 @@ option
 
 
 // ==========================
-// MAIN FUNCTION
+// MAIN ANALYZE FUNCTION
 // ==========================
+
 function analyzeSkills(){
 
 // ==========================
@@ -212,7 +198,6 @@ return;
 
 // ==========================
 // USER SKILLS
-// CASE INSENSITIVE
 // ==========================
 
 const userSkills =
@@ -240,7 +225,6 @@ skill !== ""
 
 const requiredSkills =
 roleSkills[selectedRole];
-
 
 
 // ==========================
@@ -271,7 +255,6 @@ requiredSkills.length
 missingSkills.length;
 
 
-
 // ==========================
 // READINESS
 // ==========================
@@ -297,7 +280,6 @@ document
 .getElementById("result")
 .classList
 .remove("hidden");
-
 
 
 // ==========================
@@ -339,7 +321,6 @@ timeline =
 }
 
 
-
 // ==========================
 // READINESS DISPLAY
 // ==========================
@@ -360,7 +341,6 @@ document
 .getElementById("timeline")
 .innerText =
 timeline;
-
 
 
 // ==========================
@@ -402,7 +382,6 @@ missingSkillsList
 });
 
 }
-
 
 
 // ==========================
@@ -474,7 +453,6 @@ arrow
 }
 
 
-
 // ==========================
 // RECOMMENDATIONS
 // ==========================
@@ -533,8 +511,9 @@ matchPercentage
 }
 
 
-
-// SORT
+// ==========================
+// SORT RECOMMENDATIONS
+// ==========================
 
 recommendations.sort(
 
@@ -546,8 +525,9 @@ a.percentage
 );
 
 
-
-// DISPLAY TOP-3
+// ==========================
+// DISPLAY TOP 3
+// ==========================
 
 const recommendationList =
 
@@ -577,9 +557,8 @@ recommendationList
 });
 
 
-
 // ==========================
-// CHART
+// DONUT CHART
 // ==========================
 
 const canvas =
@@ -588,21 +567,19 @@ document.getElementById(
 );
 
 
-
 if(skillChart){
 
 skillChart.destroy();
 
 }
 
+
 canvas.width =
 canvas.width;
 
 
-
 const ctx =
 canvas.getContext("2d");
-
 
 
 skillChart =
@@ -667,8 +644,88 @@ color:"white"
 
 });
 
+} // analyzeSkills ends here
+
+
+
+// ==========================
+// FETCH LIVE JOBS
+// ==========================
+
+async function fetchJobs(){
+
+    const role =
+    document.getElementById("roleSelect").value;
+
+    const APP_ID = "dcd24e6a";
+    const API_KEY = "8d074d70e3d330621ae1eccc1a42f50a";
+
+    const url =
+    `https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=${APP_ID}&app_key=${API_KEY}&results_per_page=5&what=${role}&content-type=application/json`;
+
+    try{
+
+        document.getElementById(
+        "jobResults"
+        ).innerHTML =
+        "Fetching live jobs...";
+
+        const proxy=
+        "http://cors-anywhere.herokuapp.com/";
+        const response=
+        await fetch(proxy+url);
+
+        const data =
+        await response.json();
+
+        let jobsHTML = "";
+
+        data.results.forEach(job => {
+
+            jobsHTML += `
+
+            <div class="job-card">
+
+                <h3>${job.title}</h3>
+
+                <p>
+                    <strong>Company:</strong>
+                    ${job.company.display_name}
+                </p>
+
+                <p>
+                    <strong>Location:</strong>
+                    ${job.location.display_name}
+                </p>
+
+                <a href="${job.redirect_url}"
+                   target="_blank">
+
+                    Apply Now
+
+                </a>
+
+            </div>
+
+            `;
+
+        });
+
+        document.getElementById(
+        "jobResults"
+        ).innerHTML = jobsHTML;
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        document.getElementById(
+        "jobResults"
+        ).innerHTML =
+        "Unable to fetch jobs.";
+
+    }
+
 }
- 
-
-
-  

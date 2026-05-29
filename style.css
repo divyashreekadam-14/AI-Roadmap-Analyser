@@ -1,244 +1,782 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+/* ==========================
+   GOOGLE FONT
+========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+/* ==========================
+   GLOBAL RESET
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
 }
 
-body {
-  background: #0f172a;
-  color: white;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+/* ==========================
+   BODY
+========================== */
+
+body{
+
+    background:
+    radial-gradient(circle at top left,#1e3a8a,#0f172a 40%),
+    radial-gradient(circle at bottom right,#00ffd5,#111827 35%);
+
+    background-attachment:fixed;
+
+    color:#e2e8f0;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px 20px;
+
+    overflow-x:hidden;
+
 }
 
-.container {
-  width: 90%;
-  max-width: 700px;
+
+/* ==========================
+   CONTAINER
+========================== */
+
+.container{
+
+    width:100%;
+
+    max-width:900px;
+
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 10px;
-  font-size: 40px;
+
+/* ==========================
+   MAIN TITLE
+========================== */
+
+h1{
+
+    text-align:center;
+
+    font-size:52px;
+
+    font-weight:700;
+
+    margin-bottom:14px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #00ffd5,
+        #3b82f6,
+        #ffffff
+    );
+
+    background-clip:text;
+-webkit-background-clip:text;
+
+color:transparent;
+-webkit-text-fill-color:transparent;
+
+    letter-spacing:1px;
+
 }
 
-.subtitle {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #cbd5e1;
+
+/* ==========================
+   SUBTITLE
+========================== */
+
+.subtitle{
+
+    text-align:center;
+
+    color:#cbd5e1;
+
+    margin-bottom:35px;
+
+    font-size:18px;
+
+    line-height:1.6;
+
 }
+
+
+/* ==========================
+   MAIN CARDS
+========================== */
 
 .card,
-.result-card {
-  background: #1e293b;
-  padding: 25px;
-  border-radius: 15px;
-  margin-bottom: 20px;
+.result-card{
+
+    background:
+    rgba(15,23,42,0.72);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    padding:32px;
+
+    border-radius:28px;
+
+    margin-bottom:28px;
+
+    box-shadow:
+
+    0 10px 40px rgba(0,0,0,0.4),
+
+    0 0 25px rgba(0,255,213,0.08);
+
+    animation:
+    floating 3s ease-in-out infinite;
+
 }
 
-label {
-  display: block;
-  margin-top: 15px;
-  margin-bottom: 8px;
+
+/* ==========================
+   LABELS
+========================== */
+
+label{
+
+    display:block;
+
+    margin-top:18px;
+
+    margin-bottom:10px;
+
+    color:#cbd5e1;
+
+    font-size:15px;
+
+    font-weight:500;
+
 }
+
+
+/* ==========================
+   INPUTS
+========================== */
 
 input,
-select {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  font-size: 16px;
+select{
+
+    width:100%;
+
+    padding:16px;
+
+    border-radius:16px;
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    background:
+    rgba(255,255,255,0.04);
+
+    color:white;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:0.3s ease;
+
+    margin-bottom:18px;
+
+    backdrop-filter:blur(8px);
+
 }
 
-button {
-  width: 100%;
-  padding: 14px;
-  background: #3b82f6;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 17px;
-  transition: 0.3s;
+
+/* ==========================
+   INPUT FOCUS
+========================== */
+
+input:focus,
+select:focus{
+
+    border-color:#00ffd5;
+
+    box-shadow:
+    0 0 12px rgba(0,255,213,0.3);
+
 }
 
-button:hover {
-  background: #2563eb;
+
+/* ==========================
+   BUTTONS
+========================== */
+
+button{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #00c6ff
+    );
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.35s ease;
+
+    margin-top:12px;
+
+    box-shadow:
+    0 6px 20px rgba(37,99,235,0.35);
+
 }
 
-.hidden {
-  display: none;
+
+/* ==========================
+   BUTTON HOVER
+========================== */
+
+button:hover{
+
+    transform:
+    translateY(-3px)
+    scale(1.01);
+
+    box-shadow:
+    0 10px 28px rgba(0,198,255,0.35);
+
 }
 
-h2 {
-  margin-bottom: 15px;
+
+/* ==========================
+   HIDDEN
+========================== */
+
+.hidden{
+
+    display:none;
+
 }
 
-h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  color: #93c5fd;
+
+/* ==========================
+   HEADINGS
+========================== */
+
+h2{
+
+    margin-bottom:15px;
+
+    color:white;
+
 }
 
-ul,
-ol {
-  padding-left: 20px;
+
+h3{
+
+    margin-top:25px;
+
+    margin-bottom:15px;
+
+    color:#00ffd5;
+
+    font-size:24px;
+
 }
 
-li {
-  margin-bottom: 8px;
+
+/* ==========================
+   LISTS
+========================== */
+
+ul{
+
+    padding-left:20px;
+
 }
-canvas{
+
+
+li{
+
+    margin-bottom:10px;
+
+    line-height:1.6;
+
+    color:#dbeafe;
+
+}
+
+
+/* ==========================
+   ANALYSIS BOX
+========================== */
+
+.analysis-box{
+
+    background:
+    linear-gradient(
+        145deg,
+        #111827,
+        #1f2937
+    );
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    padding:24px;
+
+    border-radius:22px;
+
     margin-top:20px;
-}
 
-#readiness {
-  font-size: 20px;
-  margin-bottom: 10px;
-  color: #22c55e;
-}
-#flowchart {
-
-  display: flex;
-
-  flex-wrap: wrap;
-
-  align-items: center;
-
-  gap: 10px;
-
-  margin-top: 20px;
-
-}
-
-.flow-step {
-
-  background: #00ff99;
-
-  color: black;
-
-  padding: 10px 15px;
-
-  border-radius: 10px;
-
-  font-weight: bold;
-
-}
-
-.arrow {
-
-  font-size: 24px;
-
-  color: white;
-
-}
-.analysis-box,
-.recommendation-box {
-
-  background: #1e1e2f;
-
-  border: 1px solid rgba(255,255,255,0.1);
-
-  padding: 20px;
-
-  border-radius: 16px;
-
-  margin-top: 25px;
-
-  box-shadow:
-    0 4px 12px rgba(0,0,0,0.3);
+    box-shadow:
+    0 4px 15px rgba(0,0,0,0.3);
 
 }
 
 
+/* ==========================
+   READINESS
+========================== */
 
-.analysis-box h3,
-.recommendation-box h3 {
+#readiness{
 
-  color: #00ff99;
+    font-size:24px;
 
-  margin-bottom: 15px;
+    font-weight:bold;
 
-  font-size: 22px;
+    color:#22c55e;
+
+    margin-bottom:10px;
+
+}
+
+
+/* ==========================
+   TIMELINE
+========================== */
+
+#timeline{
+
+    color:#cbd5e1;
+
+    font-size:17px;
 
 }
 
 
+/* ==========================
+   DONUT CHART
+========================== */
 
-.analysis-box p,
-.recommendation-box li {
+canvas{
 
-  font-size: 18px;
-
-  margin-bottom: 10px;
-
-  line-height: 1.6;
-
-}
-.result-card {
-
-  background: #121212;
-
-  padding: 30px;
-
-  border-radius: 20px;
-
-  margin-top: 30px;
-
-}
-.login-box {
-  width: 300px;
-  margin: 100px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  text-align: center;
-  border-radius: 10px;
+    margin-top:30px auto;
+    max-width:  500px;
+    max-width:  500px;
+    display:block;
+    align-items: center;
 }
 
-.login-box input {
-  width: 90%;
-  margin: 10px;
-  padding: 8px;
+
+/* ==========================
+   FLOWCHART
+========================== */
+
+#flowchart{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-top:20px;
+
 }
 
-.login-box button {
-  padding: 10px 20px;
-  cursor: pointer;
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+
+/* ==========================
+   FLOW STEPS
+========================== */
+
+.flow-step{
+
+    background:
+    linear-gradient(
+        135deg,
+        #00ff99,
+        #00d084
+    );
+
+    color:#04130a;
+
+    padding:14px 22px;
+
+    border-radius:16px;
+
+    font-weight:bold;
+
+    box-shadow:
+    0 8px 18px rgba(0,255,153,0.25);
+
+    transition:0.3s ease;
+
 }
 
-body {
-  background: #0f172a; /* dark navy */
-  color: #e2e8f0;
-  min-height: 100vh;
-}
-.search-box {
-  display: flex;
-  gap: 10px;
-  margin: 20px 0;
+
+.flow-step:hover{
+
+    transform:
+    translateY(-2px)
+    scale(1.05);
+
 }
 
-.search-box input {
-  flex: 1;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
+
+/* ==========================
+   FLOW ARROW
+========================== */
+
+.arrow{
+
+    font-size:24px;
+
+    color:white;
+
 }
 
-.search-box button {
-  padding: 12px 20px;
-  border-radius: 8px;
-  background: #38bdf8;
-  border: none;
-  cursor: pointer;
+
+/* ==========================
+   RESULT CARD
+========================== */
+
+.result-card{
+
+    margin-top:30px;
+
+}
+
+
+/* ==========================
+   LOGIN BOX
+========================== */
+
+.login-box{
+
+    width:100%;
+
+    max-width:350px;
+
+    margin:auto;
+
+    background:
+    rgba(15,23,42,0.9);
+
+    padding:30px;
+
+    border-radius:22px;
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,0.4);
+
+}
+
+
+.login-box h2{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+
+.login-box input{
+
+    margin-bottom:15px;
+
+}
+
+
+/* ==========================
+   SEARCH BOX
+========================== */
+
+.search-box{
+
+    display:flex;
+
+    gap:10px;
+
+    margin:20px 0;
+
+}
+
+
+.search-box input{
+
+    flex:1;
+
+}
+
+
+.search-box button{
+
+    width:auto;
+
+    padding:12px 20px;
+
+}
+
+
+/* ==========================
+   JOB MARKET SECTION
+========================== */
+
+#jobMarketSection{
+
+    margin-top:40px;
+
+    padding:28px;
+
+    border-radius:24px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(17,24,39,0.95),
+        rgba(31,41,55,0.9)
+    );
+
+    border:1px solid rgba(0,255,200,0.15);
+
+    box-shadow:
+    0 0 25px rgba(0,255,200,0.08);
+
+}
+
+
+/* ==========================
+   JOB MARKET TITLE
+========================== */
+
+#jobMarketSection h2{
+
+    color:#00ffd5;
+
+    font-size:30px;
+
+    margin-bottom:22px;
+
+    text-align:center;
+
+    text-shadow:
+    0 0 12px rgba(0,255,213,0.4);
+
+}
+
+
+/* ==========================
+   JOB CARD
+========================== */
+
+.job-card{
+
+    background:
+    rgba(17,24,39,0.92);
+
+    backdrop-filter:blur(12px);
+
+    padding:24px;
+
+    margin-top:22px;
+
+    border-radius:22px;
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    box-shadow:
+    0 8px 22px rgba(0,0,0,0.35);
+
+    transition:0.35s ease;
+
+    animation:
+    floating 3s ease-in-out infinite;
+
+}
+
+
+.job-card:hover{
+
+    transform:
+    translateY(-4px);
+
+    box-shadow:
+    0 12px 25px rgba(0,255,213,0.2);
+
+}
+
+
+/* ==========================
+   JOB TITLE
+========================== */
+
+.job-card h3{
+
+    color:#00ffd5;
+
+    margin-bottom:12px;
+
+    font-size:24px;
+
+}
+
+
+/* ==========================
+   JOB TEXT
+========================== */
+
+.job-card p{
+
+    color:#d1d5db;
+
+    margin:8px 0;
+
+    font-size:15px;
+
+    line-height:1.6;
+
+}
+
+
+.job-card strong{
+
+    color:white;
+
+}
+
+
+/* ==========================
+   APPLY BUTTON
+========================== */
+
+.job-card a{
+
+    display:inline-block;
+
+    margin-top:15px;
+
+    padding:10px 18px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    background:
+    linear-gradient(
+        90deg,
+        #00c853,
+        #00e676
+    );
+
+    color:#04130a;
+
+    transition:0.3s ease;
+
+}
+
+
+.job-card a:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:
+    0 0 15px rgba(0,230,118,0.4);
+
+}
+
+
+/* ==========================
+   FLOATING ANIMATION
+========================== */
+
+@keyframes floating{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-4px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+
+/* ==========================
+   RESPONSIVE DESIGN
+========================== */
+
+@media(max-width:768px){
+
+    h1{
+
+        font-size:38px;
+
+    }
+
+    .card,
+    .result-card{
+
+        padding:24px;
+
+    }
+
+    button{
+
+        font-size:15px;
+
+    }
+
+    #jobMarketSection h2{
+
+        font-size:24px;
+
+    }
+
 }

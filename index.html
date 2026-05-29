@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
 
@@ -10,6 +12,7 @@
 
   <link rel="stylesheet"
         href="style.css">
+
 </head>
 
 <body>
@@ -25,6 +28,8 @@
 
   <div class="card">
 
+    <!-- SKILLS INPUT -->
+
     <label>Enter Your Skills</label>
 
     <input
@@ -32,9 +37,11 @@
       id="skillsInput"
       list="skillSuggestions"
       placeholder="Example: HTML, CSS">
-      <datalist id="skillSuggestions"></datalist>
-    
 
+    <datalist id="skillSuggestions"></datalist>
+
+
+    <!-- ROLE SELECT -->
 
     <label>Select Target Role</label>
 
@@ -71,6 +78,8 @@
     </select>
 
 
+    <!-- ANALYZE BUTTON -->
+
     <button
       type="button"
       onclick="analyzeSkills()">
@@ -82,6 +91,8 @@
   </div>
 
 
+
+  <!-- RESULT SECTION -->
 
   <div id="result"
        class="result-card hidden">
@@ -106,13 +117,36 @@
     </div>
 
 
-    <canvas id="skillChart"></canvas>
+    <!-- DONUT CHART -->
 
+    <canvas id="skillChart"></canvas>
+<section id="jobMarketSection">
+
+      <h2>Real-Time Job Market</h2>
+
+      <button onclick="fetchJobs()">
+
+        Show Live Jobs
+
+      </button>
+
+      <div id="jobResults"></div>
+
+    </section>
+
+    <!-- FLOWCHART -->
 
     <h3>Personalized Flowchart</h3>
 
     <div id="flowchart"></div>
 
+
+    <!-- JOB MARKET SECTION -->
+
+    
+
+
+    <!-- MISSING SKILLS -->
 
     <h3>Missing Skills</h3>
 
@@ -123,9 +157,12 @@
 </div>
 
 
-<script src=
-"https://cdn.jsdelivr.net/npm/chart.js">
-</script>
+<!-- CHART JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<!-- SCRIPT FILE -->
 
 <script src="script.js"></script>
 
