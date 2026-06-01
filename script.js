@@ -652,80 +652,140 @@ color:"white"
 // FETCH LIVE JOBS
 // ==========================
 
-async function fetchJobs(){
+async function fetchJobs() {
 
-    const role =
-    document.getElementById("roleSelect").value;
+    const roleMap = {
+        frontend: "Frontend Developer",
+        backend: "Backend Developer",
+        fullstack: "Full Stack Developer",
+        dataanalyst: "Data Analyst",
+        uiux: "UI UX Designer",
+        aiengineer: "AI Engineer",
+        cybersecurity: "Cybersecurity Analyst"
+    };
 
-    const APP_ID = "dcd24e6a";
-    const API_KEY = "8d074d70e3d330621ae1eccc1a42f50a";
+    const selectedRole =
+localStorage.getItem(
+    "selectedRole"
+) || "frontend";
 
-    const url =
-    `https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=${APP_ID}&app_key=${API_KEY}&results_per_page=5&what=${role}&content-type=application/json`;
+const role =
+roleMap[selectedRole];
 
-    try{
+    const jobResults =
+    document.getElementById("jobResults");
 
-        document.getElementById(
-        "jobResults"
-        ).innerHTML =
-        "Fetching live jobs...";
+    jobResults.innerHTML =
+    "Fetching live jobs...";
 
-        const proxy=
-        "http://cors-anywhere.herokuapp.com/";
-        const response=
-        await fetch(proxy+url);
+    try {
+
+        const APP_ID = "dcd24e6a";
+        const API_KEY = "8d074d70e3d330621ae1eccc1a42f50a";
+
+        const url =
+        `https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=${APP_ID}&app_key=${API_KEY}&results_per_page=5&what=${encodeURIComponent(role)}&content-type=application/json`;
+
+        const response =
+        await fetch(url);
 
         const data =
         await response.json();
 
         let jobsHTML = "";
 
-        data.results.forEach(job => {
+        if (!data.results || data.results.length === 0) {
 
-            jobsHTML += `
+            jobsHTML =
+            "<p>No jobs found.</p>";
 
-            <div class="job-card">
+        } else {
 
-                <h3>${job.title}</h3>
+            data.results.forEach(job => {
 
-                <p>
+                jobsHTML += `
+                <div class="job-card">
+
+                    <h3>${job.title}</h3>
+
+                    <p>
                     <strong>Company:</strong>
                     ${job.company.display_name}
-                </p>
+                    </p>
 
-                <p>
+                    <p>
                     <strong>Location:</strong>
                     ${job.location.display_name}
-                </p>
+                    </p>
 
-                <a href="${job.redirect_url}"
-                   target="_blank">
+                    <a href="${job.redirect_url}"
+                       target="_blank">
+                       Apply Now
+                    </a>
 
-                    Apply Now
+                </div>
+                `;
 
-                </a>
+            });
 
-            </div>
+        }
 
-            `;
-
-        });
-
-        document.getElementById(
-        "jobResults"
-        ).innerHTML = jobsHTML;
+        jobResults.innerHTML =
+        jobsHTML;
 
     }
 
-    catch(error){
+    catch(error) {
 
-        console.log(error);
+        console.error(error);
 
-        document.getElementById(
-        "jobResults"
-        ).innerHTML =
-        "Unable to fetch jobs.";
-
+        jobResults.innerHTML =
+        "<p>Unable to fetch jobs. API or browser security restriction detected.</p>";
     }
 
 }
+function openJobsPage() {
+  const role=
+  document.getElementById("roleSelect").value;
+  localStorage.setItem(
+    "selectedRole",
+    role
+  );
+    window.location.href = "jobs.html";
+}
+
+function openAITutor() {
+    window.location.href = "ai-tutor.html";
+}
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+    const roleMap = {
+        frontend:"Frontend Developer",
+        backend:"Backend Developer",
+        fullstack:"Full Stack Developer",
+        dataanalyst:"Data Analyst",
+        uiux:"UI/UX Designer",
+        aiengineer:"AI Engineer",
+        cybersecurity:"Cybersecurity Analyst"
+    };
+
+    const role =
+    localStorage.getItem(
+        "selectedRole"
+    );
+
+    const display =
+    document.getElementById(
+        "selectedRoleDisplay"
+    );
+
+    if(display && role){
+
+        display.innerHTML =
+        `<strong>Selected Role:</strong> ${roleMap[role]}`;
+
+    }
+
+});

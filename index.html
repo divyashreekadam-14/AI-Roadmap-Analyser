@@ -90,72 +90,49 @@
 
   </div>
 
+<!-- RESULT SECTION -->
 
-
-  <!-- RESULT SECTION -->
-
-  <div id="result"
-       class="result-card hidden">
+<div id="result" class="result-card hidden">
 
     <h3>Recommended Careers</h3>
-
     <ul id="careerRecommendations"></ul>
 
     <br><br>
 
-
     <h2>Analysis Result</h2>
 
     <div class="analysis-box">
-
-      <h3>Your Skill Analysis</h3>
-
-      <p id="readiness"></p>
-
-      <p id="timeline"></p>
-
+        <h3>Your Skill Analysis</h3>
+        <p id="readiness"></p>
+        <p id="timeline"></p>
     </div>
 
-
     <!-- DONUT CHART -->
-
     <canvas id="skillChart"></canvas>
-<section id="jobMarketSection">
-
-      <h2>Real-Time Job Market</h2>
-
-      <button onclick="fetchJobs()">
-
-        Show Live Jobs
-
-      </button>
-
-      <div id="jobResults"></div>
-
-    </section>
 
     <!-- FLOWCHART -->
-
     <h3>Personalized Flowchart</h3>
-
     <div id="flowchart"></div>
 
-
-    <!-- JOB MARKET SECTION -->
-
-    
-
-
     <!-- MISSING SKILLS -->
-
     <h3>Missing Skills</h3>
-
     <ul id="missingSkills"></ul>
 
-  </div>
+   <!-- ACTION BUTTONS -->
+
+<div class="action-buttons">
+
+    <button onclick="openJobsPage()">
+        💼 See Jobs for Your Skills
+    </button>
+
+    <button onclick="openAITutor()">
+        🤖 AI Tutor
+    </button>
 
 </div>
 
+</div>
 
 <!-- CHART JS -->
 
