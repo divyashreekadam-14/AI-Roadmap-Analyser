@@ -1,9 +1,6 @@
 console.log("BUTTON CLICKED");
 
-
-// ==========================
 // ROLE SKILLS DATABASE
-// ==========================
 
 const roleSkills = {
 
@@ -69,9 +66,8 @@ const roleSkills = {
 };
 
 
-// ==========================
 // ROLE TITLES
-// ==========================
+
 
 const roleTitles = {
 
@@ -92,16 +88,12 @@ const roleTitles = {
 };
 
 
-// ==========================
 // GLOBAL CHART VARIABLE
-// ==========================
+
 
 let skillChart;
 
-
-// ==========================
 // CASE INSENSITIVE HELPER
-// ==========================
 
 function normalizeSkill(skill){
 
@@ -112,10 +104,7 @@ function normalizeSkill(skill){
 
 }
 
-
-// ==========================
 // AUTOCOMPLETE SUGGESTIONS
-// ==========================
 
 document.addEventListener(
 "DOMContentLoaded",
@@ -161,10 +150,8 @@ option
 
 });
 
-
-// ==========================
 // MAIN ANALYZE FUNCTION
-// ==========================
+
 
 function analyzeSkills(){
 
@@ -182,10 +169,8 @@ document
 .getElementById("roleSelect")
 .value;
 
-
-// ==========================
 // VALIDATION
-// ==========================
+
 
 if(!skillsInput.trim()){
 
@@ -195,10 +180,8 @@ return;
 
 }
 
-
-// ==========================
 // USER SKILLS
-// ==========================
+
 
 const userSkills =
 
@@ -218,18 +201,14 @@ skill !== ""
 
 );
 
-
-// ==========================
 // REQUIRED SKILLS
-// ==========================
 
 const requiredSkills =
 roleSkills[selectedRole];
 
 
-// ==========================
+
 // MISSING SKILLS
-// ==========================
 
 const missingSkills =
 
@@ -240,13 +219,20 @@ requiredSkills.filter(skill=>
 normalizeSkill(skill)
 
 )
-
+);
+localStorage.setItem(
+  "missingSkills",
+  JSON.stringify(missingSkills)
 );
 
+localStorage.setItem(
+  "selectedRole",
+  selectedRole
+);
+window.currentMissingSkills =
+missingSkills;
 
-// ==========================
 // COMPLETED SKILLS
-// ==========================
 
 const completedSkills =
 
@@ -255,9 +241,8 @@ requiredSkills.length
 missingSkills.length;
 
 
-// ==========================
+
 // READINESS
-// ==========================
 
 const readiness =
 
@@ -271,20 +256,14 @@ requiredSkills.length)
 
 );
 
-
-// ==========================
 // SHOW RESULT
-// ==========================
 
 document
 .getElementById("result")
 .classList
 .remove("hidden");
 
-
-// ==========================
 // TIMELINE
-// ==========================
 
 let timeline = "";
 
@@ -320,73 +299,20 @@ timeline =
 
 }
 
-
-// ==========================
 // READINESS DISPLAY
-// ==========================
 
 document
 .getElementById("readiness")
 .innerText =
 
-`You are ${readiness}% ready for ${roleTitles[selectedRole]}`;
-
-
-
-// ==========================
+`You are ${readiness}% ready for ${roleTitles[selectedRole]}`
 // TIMELINE DISPLAY
-// ==========================
 
 document
 .getElementById("timeline")
 .innerText =
 timeline;
-
-
-// ==========================
-// MISSING SKILLS LIST
-// ==========================
-
-const missingSkillsList =
-
-document.getElementById(
-"missingSkills"
-);
-
-missingSkillsList.innerHTML="";
-
-
-
-if(
-missingSkills.length===0
-){
-
-missingSkillsList.innerHTML =
-
-"<li>No missing skills 🎉</li>";
-
-}
-
-else{
-
-missingSkills.forEach(skill=>{
-
-const li =
-document.createElement("li");
-
-li.innerText = skill;
-
-missingSkillsList
-.appendChild(li);
-
-});
-
-}
-
-
-// ==========================
 // FLOWCHART
-// ==========================
 
 const flowchart =
 document.getElementById(
@@ -452,10 +378,7 @@ arrow
 
 }
 
-
-// ==========================
 // RECOMMENDATIONS
-// ==========================
 
 const recommendations=[];
 
@@ -510,10 +433,8 @@ matchPercentage
 
 }
 
+// SORT RECOMMENDATIONs
 
-// ==========================
-// SORT RECOMMENDATIONS
-// ==========================
 
 recommendations.sort(
 
@@ -524,10 +445,7 @@ a.percentage
 
 );
 
-
-// ==========================
 // DISPLAY TOP 3
-// ==========================
 
 const recommendationList =
 
@@ -556,10 +474,7 @@ recommendationList
 
 });
 
-
-// ==========================
 // DONUT CHART
-// ==========================
 
 const canvas =
 document.getElementById(
@@ -644,14 +559,10 @@ color:"white"
 
 });
 
-} // analyzeSkills ends here
+}                   
+            // analyzeSkills ends here
 
-
-
-// ==========================
 // FETCH LIVE JOBS
-// ==========================
-
 async function fetchJobs() {
 
     const roleMap = {
@@ -755,7 +666,21 @@ function openJobsPage() {
 }
 
 function openAITutor() {
-    window.location.href = "ai-tutor.html";
+
+    if (
+        !window.currentMissingSkills
+    ) {
+
+        alert(
+            "Please analyze your skills first."
+        );
+
+        return;
+    }
+
+    window.location.href =
+    "ai-tutor.html";
+
 }
 document.addEventListener(
 "DOMContentLoaded",
@@ -789,9 +714,7 @@ function(){
     }
 
 });
-// ==========================
 // CUSTOM SKILL AUTOCOMPLETE
-// ==========================
 
 document.addEventListener("DOMContentLoaded", () => {
 
