@@ -780,3 +780,21 @@ canvas{
     }
 
 }
+.autocomplete-list {
+    position: relative;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.autocomplete-item {
+    background: #1f2937;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #374151;
+    transition: 0.3s;
+}
+
+.autocomplete-item:hover {
+    background: #374151;
+}

@@ -789,3 +789,95 @@ function(){
     }
 
 });
+// ==========================
+// CUSTOM SKILL AUTOCOMPLETE
+// ==========================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const skillsInput =
+    document.getElementById("skillsInput");
+
+    const autocompleteList =
+    document.getElementById("autocomplete-list");
+
+    const allSkills = [
+        ...new Set(
+            Object.values(roleSkills).flat()
+        )
+    ];
+
+    skillsInput.addEventListener("input", () => {
+
+        const inputValue =
+        skillsInput.value;
+
+        const skills =
+        inputValue.split(",");
+
+        const currentSkill =
+        skills[skills.length - 1]
+        .trim()
+        .toLowerCase();
+
+        autocompleteList.innerHTML = "";
+
+        if (!currentSkill) return;
+
+        const matches =
+        allSkills.filter(skill =>
+            skill.toLowerCase()
+            .startsWith(currentSkill)
+        );
+
+        matches.forEach(skill => {
+
+            const item =
+            document.createElement("div");
+
+            item.classList.add(
+                "autocomplete-item"
+            );
+
+            item.textContent =
+            skill;
+
+            item.addEventListener(
+            "click",
+            () => {
+
+                skills[skills.length - 1] =
+                " " + skill;
+
+                skillsInput.value =
+                skills.join(",");
+
+                autocompleteList.innerHTML =
+                "";
+
+            });
+
+            autocompleteList.appendChild(
+                item
+            );
+
+        });
+
+    });
+
+    document.addEventListener(
+    "click",
+    (e) => {
+
+        if (
+            e.target !== skillsInput
+        ) {
+
+            autocompleteList.innerHTML =
+            "";
+
+        }
+
+    });
+
+});

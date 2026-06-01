@@ -35,9 +35,9 @@
     <input
       type="text"
       id="skillsInput"
-      list="skillSuggestions"
       placeholder="Example: HTML, CSS">
-
+<div id="autocomplete-list"
+class="autocomplete-list"></div>
     <datalist id="skillSuggestions"></datalist>
 
 
@@ -45,7 +45,7 @@
 
     <label>Select Target Role</label>
 
-    <select id="roleSelect">
+    <select id="roleSelect" size="7">
 
       <option value="frontend">
         Frontend Developer
