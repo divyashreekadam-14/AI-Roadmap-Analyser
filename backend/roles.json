@@ -1,0 +1,32 @@
+{
+  "Frontend Developer": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React",
+    "Git"
+  ],
+
+  "Backend Developer": [
+    "Node.js",
+    "Express",
+    "MongoDB",
+    "API",
+    "Git"
+  ],
+
+  "Data Analyst": [
+    "Excel",
+    "SQL",
+    "Python",
+    "Power BI",
+    "Statistics"
+  ],
+
+  "AI Engineer": [
+    "Python",
+    "Machine Learning",
+    "TensorFlow",
+    "Deep Learning"
+  ]
+}

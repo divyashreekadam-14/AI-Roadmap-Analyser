@@ -43,41 +43,18 @@ class="autocomplete-list"></div>
 
     <!-- ROLE SELECT -->
 
-    <label>Select Target Role</label>
+    <label>Enter Target Role</label>
 
-    <select id="roleSelect" size="7">
+<input
+    type="text"
+    id="roleInput"
+    placeholder="Example: Data Analyst">
 
-      <option value="frontend">
-        Frontend Developer
-      </option>
+<button onclick="searchRole()">
+    Search Role
+</button>
 
-      <option value="backend">
-        Backend Developer
-      </option>
-
-      <option value="fullstack">
-        Full Stack Developer
-      </option>
-
-      <option value="dataanalyst">
-        Data Analyst
-      </option>
-
-      <option value="uiux">
-        UI/UX Designer
-      </option>
-
-      <option value="aiengineer">
-        AI Engineer
-      </option>
-
-      <option value="cybersecurity">
-        Cybersecurity Analyst
-      </option>
-
-    </select>
-
-
+<p id="roleStatus"></p>
     <!-- ANALYZE BUTTON -->
 
     <button

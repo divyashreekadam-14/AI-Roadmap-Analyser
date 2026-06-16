@@ -92,6 +92,7 @@ const roleTitles = {
 
 
 let skillChart;
+let selectedRoleData=null;
 
 // CASE INSENSITIVE HELPER
 
@@ -151,415 +152,473 @@ option
 });
 
 // MAIN ANALYZE FUNCTION
+async function searchRole() {
 
-
-function analyzeSkills(){
-
-// ==========================
-// GET INPUTS
-// ==========================
-
-const skillsInput =
+    const role =
 document
-.getElementById("skillsInput")
-.value;
+.getElementById("roleInput")
+.value
+.trim()
+.replace(/\s+/g, " ");
 
-const selectedRole =
-document
-.getElementById("roleSelect")
-.value;
+    if (!role) {
 
-// VALIDATION
+        alert("Please enter a role");
 
+        return;
+    }
 
-if(!skillsInput.trim()){
+    try {
 
-alert("Please enter skills.");
+        const response =
+            await fetch(
+                `http://localhost:5000/api/role/${encodeURIComponent(role)}`
+            );
 
-return;
+        if (!response.ok) {
 
-}
+            throw new Error("Role not found");
+        }
 
-// USER SKILLS
+        const data =
+            await response.json();
 
+        selectedRoleData = data;
 
-const userSkills =
+        document
+            .getElementById("roleStatus")
+            .innerText =
+            `✓ ${data.role} loaded successfully`;
 
-skillsInput
+    }
 
-.split(",")
+    catch(error){
 
-.map(skill=>
+        document
+            .getElementById("roleStatus")
+            .innerText =
+            "Role not found";
 
-normalizeSkill(skill)
-
-)
-
-.filter(skill=>
-
-skill !== ""
-
-);
-
-// REQUIRED SKILLS
-
-const requiredSkills =
-roleSkills[selectedRole];
-
-
-
-// MISSING SKILLS
-
-const missingSkills =
-
-requiredSkills.filter(skill=>
-
-!userSkills.includes(
-
-normalizeSkill(skill)
-
-)
-);
-localStorage.setItem(
-  "missingSkills",
-  JSON.stringify(missingSkills)
-);
-
-localStorage.setItem(
-  "selectedRole",
-  selectedRole
-);
-window.currentMissingSkills =
-missingSkills;
-
-// COMPLETED SKILLS
-
-const completedSkills =
-
-requiredSkills.length
--
-missingSkills.length;
-
-
-
-// READINESS
-
-const readiness =
-
-Math.round(
-
-(completedSkills /
-
-requiredSkills.length)
-
-*100
-
-);
-
-// SHOW RESULT
-
-document
-.getElementById("result")
-.classList
-.remove("hidden");
-
-// TIMELINE
-
-let timeline = "";
-
-if(missingSkills.length===0){
-
-timeline =
-"You are already job-ready! 🚀";
+        selectedRoleData = null;
+    }
 
 }
 
-else if(
-missingSkills.length<=2
-){
 
-timeline =
-"Estimated learning time: 1-2 months";
+function analyzeSkills() {
 
-}
+    // GET USER SKILLS
 
-else if(
-missingSkills.length<=4
-){
+    const skillsInput =
+        document
+        .getElementById("skillsInput")
+        .value;
 
-timeline =
-"Estimated learning time: 3-4 months";
+    // CHECK IF ROLE IS LOADED
 
-}
+    if (!selectedRoleData) {
 
-else{
+        alert(
+            "Please search for a role first."
+        );
 
-timeline =
-"Estimated learning time: 5-6 months";
+        return;
+    }
 
-}
+    // VALIDATE SKILLS INPUT
 
-// READINESS DISPLAY
+    if (!skillsInput.trim()) {
 
-document
-.getElementById("readiness")
-.innerText =
+        alert(
+            "Please enter skills."
+        );
 
-`You are ${readiness}% ready for ${roleTitles[selectedRole]}`
-// TIMELINE DISPLAY
+        return;
+    }
 
-document
-.getElementById("timeline")
-.innerText =
-timeline;
-// FLOWCHART
+    // ROLE DATA FROM BACKEND
 
-const flowchart =
-document.getElementById(
-"flowchart"
-);
+    const selectedRole =
+        selectedRoleData.role;
 
-flowchart.innerHTML="";
+    const requiredSkills =
+        selectedRoleData.skills;
 
+    // USER SKILLS
 
+    const userSkills =
 
-if(
-missingSkills.length===0
-){
+        skillsInput
 
-flowchart.innerHTML =
+        .split(",")
 
-"<div class='flow-step'>Job Ready 🚀</div>";
+        .map(skill =>
+            normalizeSkill(skill)
+        )
 
-}
+        .filter(skill =>
+            skill !== ""
+        );
 
-else{
+    // MISSING SKILLS
 
-missingSkills.forEach(
-(skill,index)=>{
+    const missingSkills =
 
-const step =
-document.createElement("div");
+        requiredSkills.filter(skill =>
 
-step.classList.add(
-"flow-step"
-);
+            !userSkills.includes(
 
-step.innerText =
-skill;
+                normalizeSkill(skill)
 
-flowchart.appendChild(
-step
-);
+            )
 
+        );
 
+    localStorage.setItem(
+        "missingSkills",
+        JSON.stringify(
+            missingSkills
+        )
+    );
 
-if(
-index <
-missingSkills.length-1
-){
+    localStorage.setItem(
+        "selectedRole",
+        selectedRole
+    );
 
-const arrow =
-document.createElement("div");
+    window.currentMissingSkills =
+        missingSkills;
 
-arrow.classList.add(
-"arrow"
-);
+    // COMPLETED SKILLS
 
-arrow.innerHTML="➜";
+    const completedSkills =
 
-flowchart.appendChild(
-arrow
-);
+        requiredSkills.length -
+        missingSkills.length;
 
-}
+    // READINESS
 
-});
+    const readiness =
 
-}
+        Math.round(
 
+            (completedSkills /
+
+                requiredSkills.length)
+
+            * 100
+
+        );
+
+    // SHOW RESULT
+
+    document
+
+        .getElementById(
+            "result"
+        )
+
+        .classList
+
+        .remove(
+            "hidden"
+        );
+
+    // TIMELINE
+
+    let timeline = "";
+
+    if (
+        missingSkills.length === 0
+    ) {
+
+        timeline =
+            "You are already job-ready! 🚀";
+
+    }
+
+    else if (
+        missingSkills.length <= 2
+    ) {
+
+        timeline =
+            "Estimated learning time: 1–2 months";
+
+    }
+
+    else if (
+        missingSkills.length <= 4
+    ) {
+
+        timeline =
+            "Estimated learning time: 3–4 months";
+
+    }
+
+    else {
+
+        timeline =
+            "Estimated learning time: 5–6 months";
+
+    }
+
+    // DISPLAY READINESS
+
+    document
+
+        .getElementById(
+            "readiness"
+        )
+
+        .innerText =
+
+        `You are ${readiness}% ready for ${selectedRole}`;
+
+    // DISPLAY TIMELINE
+
+    document
+
+        .getElementById(
+            "timeline"
+        )
+
+        .innerText =
+        timeline;
+
+    // FLOWCHART
+
+    const flowchart =
+
+        document
+        .getElementById(
+            "flowchart"
+        );
+
+    flowchart.innerHTML = "";
+
+    if (
+        missingSkills.length === 0
+    ) {
+
+        flowchart.innerHTML =
+
+            "<div class='flow-step'>Job Ready 🚀</div>";
+
+    }
+
+    else {
+
+        missingSkills.forEach(
+
+            (skill, index) => {
+
+                const step =
+
+                    document.createElement(
+                        "div"
+                    );
+
+                step.classList.add(
+                    "flow-step"
+                );
+
+                step.innerText =
+                    skill;
+
+                flowchart.appendChild(
+                    step
+                );
+
+                if (
+                    index <
+                    missingSkills.length - 1
+                ) {
+
+                    const arrow =
+
+                        document.createElement(
+                            "div"
+                        );
+
+                    arrow.classList.add(
+                        "arrow"
+                    );
+
+                    arrow.innerHTML =
+                        "➜";
+
+                    flowchart.appendChild(
+                        arrow
+                    );
+
+                }
+
+            }
+
+        );
+
+    }
 // RECOMMENDATIONS
 
-const recommendations=[];
+const recommendations = [];
 
+for (const roleName in roleSkills) {
 
+    const skillsForRole =
+        roleSkills[roleName];
 
-for(
-const roleName
-in roleSkills
-){
+    const matchedSkills =
+        skillsForRole.filter(skill =>
 
-const skillsForRole =
-roleSkills[roleName];
+            userSkills.includes(
+                normalizeSkill(skill)
+            )
 
+        );
 
+    const matchPercentage =
+        Math.round(
 
-const matchedSkills =
+            (matchedSkills.length /
+                skillsForRole.length)
 
-skillsForRole.filter(skill=>
+            * 100
 
-userSkills.includes(
+        );
 
-normalizeSkill(skill)
+    recommendations.push({
 
-)
+        role: roleName,
 
-);
+        percentage:
+            matchPercentage
 
-
-
-const matchPercentage =
-
-Math.round(
-
-(matchedSkills.length /
-
-skillsForRole.length)
-
-*100
-
-);
-
-
-
-recommendations.push({
-
-role:roleName,
-
-percentage:
-matchPercentage
-
-});
+    });
 
 }
 
-// SORT RECOMMENDATIONs
-
+// SORT
 
 recommendations.sort(
 
-(a,b)=>
+    (a, b) =>
 
-b.percentage -
-a.percentage
+        b.percentage -
+        a.percentage
 
 );
 
-// DISPLAY TOP 3
+// DISPLAY
 
 const recommendationList =
+    document.getElementById(
+        "careerRecommendations"
+    );
 
-document.getElementById(
-"careerRecommendations"
-);
-
-recommendationList.innerHTML="";
-
-
+recommendationList.innerHTML = "";
 
 recommendations
-.slice(0,3)
+    .slice(0, 3)
+    .forEach(item => {
 
-.forEach(item=>{
+        const li =
+            document.createElement("li");
 
-const li =
-document.createElement("li");
+        li.innerText =
 
-li.innerText =
+            `${roleTitles[item.role]} - ${item.percentage}% Match`;
 
-`${roleTitles[item.role]} - ${item.percentage}% Match`;
+        recommendationList.appendChild(
+            li
+        );
 
-recommendationList
-.appendChild(li);
+    });
+    // DONUT CHART
 
-});
+    const canvas =
 
-// DONUT CHART
+        document.getElementById(
+            "skillChart"
+        );
 
-const canvas =
-document.getElementById(
-"skillChart"
-);
+    if (skillChart) {
 
+        skillChart.destroy();
 
-if(skillChart){
+    }
 
-skillChart.destroy();
+    canvas.width =
+        canvas.width;
+
+    const ctx =
+
+        canvas.getContext(
+            "2d"
+        );
+
+    skillChart =
+
+        new Chart(ctx, {
+
+            type: "doughnut",
+
+            data: {
+
+                labels: [
+
+                    "Completed Skills",
+
+                    "Missing Skills"
+
+                ],
+
+                datasets: [{
+
+                    data: [
+
+                        completedSkills,
+
+                        missingSkills.length
+
+                    ],
+
+                    backgroundColor: [
+
+                        "#00ff99",
+
+                        "#ff4d4d"
+
+                    ],
+
+                    borderWidth: 2
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                plugins: {
+
+                    legend: {
+
+                        labels: {
+
+                            color: "white"
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
 
 }
-
-
-canvas.width =
-canvas.width;
-
-
-const ctx =
-canvas.getContext("2d");
-
-
-skillChart =
-
-new Chart(ctx,{
-
-type:"doughnut",
-
-data:{
-
-labels:[
-
-"Completed Skills",
-
-"Missing Skills"
-
-],
-
-datasets:[{
-
-data:[
-
-completedSkills,
-
-missingSkills.length
-
-],
-
-backgroundColor:[
-
-"#00ff99",
-
-"#ff4d4d"
-
-],
-
-borderWidth:2
-
-}]
-
-},
-
-options:{
-
-responsive:true,
-
-plugins:{
-
-legend:{
-
-labels:{
-
-color:"white"
-
-}
-
-}
-
-}
-
-}
-
-});
-
-}                   
             // analyzeSkills ends here
 
 // FETCH LIVE JOBS
@@ -584,10 +643,19 @@ const role =
 roleMap[selectedRole];
 
     const jobResults =
-    document.getElementById("jobResults");
+document.getElementById("jobResults");
 
-    jobResults.innerHTML =
-    "Fetching live jobs...";
+if (!jobResults) {
+
+    console.error(
+        "jobResults element not found"
+    );
+
+    return;
+}
+
+jobResults.innerHTML =
+"Fetching live jobs...";
 
     try {
 
@@ -656,13 +724,23 @@ roleMap[selectedRole];
 
 }
 function openJobsPage() {
-  const role=
-  document.getElementById("roleSelect").value;
-  localStorage.setItem(
-    "selectedRole",
-    role
-  );
-    window.location.href = "jobs.html";
+
+    if (!selectedRoleData) {
+
+        alert(
+            "Please search and analyze a role first."
+        );
+
+        return;
+    }
+
+    localStorage.setItem(
+        "selectedRole",
+        selectedRoleData.role
+    );
+
+    window.location.href =
+        "jobs.html";
 }
 
 function openAITutor() {
