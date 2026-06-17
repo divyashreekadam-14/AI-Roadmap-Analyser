@@ -15,15 +15,14 @@ app.get("/", (req, res) => {
     res.send("AI Career Guidance Backend is Running 🚀");
 });
 
-// Get Role Skills Route
+// Get Skills for Any IT Role
 app.get("/api/role/:roleName", async (req, res) => {
     try {
         const roleName = req.params.roleName?.trim();
 
-        // Validate role name
+        // Validate input
         if (!roleName) {
             return res.status(400).json({
-                success: false,
                 message: "Role name is required"
             });
         }
@@ -47,9 +46,10 @@ Rules:
 - No explanations
 - No markdown
 - No code blocks
-- Return exactly 10 beginner-friendly skills
-- Use common industry skill names
-                        `
+- Return exactly 10 beginner-friendly technical skills
+- Use short and common skill names
+- Maximum 1-2 words per skill
+`
                     },
                     {
                         role: "user",
@@ -72,18 +72,18 @@ For the role "${roleName}", return JSON in this exact format:
   ]
 }
 
-Examples of skill names:
+Examples of skills:
 Linux
-AWS
 Docker
-Python
+AWS
 Git
-Networking
+Python
 SQL
+Networking
 JavaScript
 
 Return ONLY JSON.
-                        `
+`
                     }
                 ],
 
@@ -95,8 +95,8 @@ Return ONLY JSON.
                     Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
                     "Content-Type": "application/json",
 
-                    // Recommended OpenRouter headers
-                    "HTTP-Referer": "http://localhost:3000",
+                    // Optional OpenRouter headers
+                    "HTTP-Referer": "http://localhost:5500",
                     "X-Title": "AI Career Guidance"
                 },
 
@@ -109,14 +109,13 @@ Return ONLY JSON.
 
         if (!aiResponse) {
             return res.status(500).json({
-                success: false,
                 message: "No response received from AI"
             });
         }
 
         console.log("Raw AI Response:", aiResponse);
 
-        // Remove markdown if present
+        // Remove markdown if AI adds it accidentally
         aiResponse = aiResponse
             .replace(/```json/g, "")
             .replace(/```/g, "")
@@ -127,46 +126,48 @@ Return ONLY JSON.
         try {
             parsedResponse = JSON.parse(aiResponse);
 
-            // Validate structure
+            // Validate response structure
             if (
                 !parsedResponse.role ||
                 !Array.isArray(parsedResponse.skills)
             ) {
-                throw new Error("Invalid response structure");
+                throw new Error(
+                    "Invalid response structure"
+                );
             }
 
-            // Ensure exactly 10 skills
+            // Limit to 10 skills
             parsedResponse.skills =
                 parsedResponse.skills.slice(0, 10);
 
         } catch (parseError) {
+
             console.error(
                 "JSON Parse Error:",
                 parseError.message
             );
 
             return res.status(500).json({
-                success: false,
-                message: "Invalid JSON received from AI",
+                message:
+                    "Invalid JSON received from AI",
                 rawResponse: aiResponse
             });
         }
 
-        return res.status(200).json({
-            success: true,
-            data: parsedResponse
-        });
+        // Return data directly
+        res.json(parsedResponse);
 
     } catch (error) {
+
         console.error(
             "OpenRouter Error:",
-            error.response?.data || error.message
+            error.response?.data ||
+            error.message
         );
 
-        return res.status(
+        res.status(
             error.response?.status || 500
         ).json({
-            success: false,
             message:
                 error.response?.data?.error?.message ||
                 "Unable to fetch role skills"
@@ -174,10 +175,9 @@ Return ONLY JSON.
     }
 });
 
-// Handle unknown routes
+// 404 Route
 app.use((req, res) => {
     res.status(404).json({
-        success: false,
         message: "Route not found"
     });
 });

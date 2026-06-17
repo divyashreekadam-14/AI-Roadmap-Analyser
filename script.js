@@ -180,16 +180,16 @@ document
             throw new Error("Role not found");
         }
 
-        const data =
-            await response.json();
+const data = await response.json();
 
-        selectedRoleData = data;
+console.log("API Response:", data);
 
-        document
-            .getElementById("roleStatus")
-            .innerText =
-            `✓ ${data.role} loaded successfully`;
+selectedRoleData = data.data || data;
 
+document
+    .getElementById("roleStatus")
+    .innerText =
+    `✓ ${selectedRoleData.role} loaded successfully`;
     }
 
     catch(error){
@@ -243,6 +243,17 @@ function analyzeSkills() {
 
     const requiredSkills =
         selectedRoleData.skills;
+        if (
+    !requiredSkills ||
+    requiredSkills.length === 0
+) {
+
+    alert(
+        "Unable to load skills for this role."
+    );
+
+    return;
+}
 
     // USER SKILLS
 
@@ -261,18 +272,25 @@ function analyzeSkills() {
         );
 
     // MISSING SKILLS
+const missingSkills = requiredSkills.filter(requiredSkill => {
 
-    const missingSkills =
+    const normalizedRequired =
+        normalizeSkill(requiredSkill);
 
-        requiredSkills.filter(skill =>
+    return !userSkills.some(userSkill => {
 
-            !userSkills.includes(
+        const normalizedUser =
+            normalizeSkill(userSkill);
 
-                normalizeSkill(skill)
-
-            )
-
+        return (
+            normalizedRequired === normalizedUser ||
+            normalizedRequired.includes(normalizedUser) ||
+            normalizedUser.includes(normalizedRequired)
         );
+
+    });
+
+});
 
     localStorage.setItem(
         "missingSkills",
@@ -736,7 +754,7 @@ function openJobsPage() {
 
     localStorage.setItem(
         "selectedRole",
-        selectedRoleData.role
+        selectedRoleData.role||"Devloper"
     );
 
     window.location.href =
