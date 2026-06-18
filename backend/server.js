@@ -1,7 +1,16 @@
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+const dotenv=require("dotenv");
+const result = dotenv.config();
+console.log(result);
 require("dotenv").config();
+const connectDB=require("./config/db");
+connectDB();
+const Roadmap=require("./models/Roadmap");
+const authRoutes=require("./routes/auth");
+
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -9,6 +18,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use("/api/auth",authRoutes);
 
 // Home Route
 app.get("/", (req, res) => {
@@ -155,7 +165,18 @@ Return ONLY JSON.
         }
 
         // Return data directly
-        res.json(parsedResponse);
+        try {
+    await Roadmap.create({
+        role: parsedResponse.role,
+        skills: parsedResponse.skills
+    });
+
+    console.log("✅ Roadmap Saved");
+} catch (dbError) {
+    console.error("MongoDB Save Error:", dbError.message);
+}
+
+res.json(parsedResponse);
 
     } catch (error) {
 
@@ -176,6 +197,23 @@ Return ONLY JSON.
 });
 
 // 404 Route
+// Get All Saved Roadmaps
+app.get("/api/roadmaps", async (req, res) => {
+    try {
+        const roadmaps = await Roadmap.find().sort({
+            createdAt: -1
+        });
+
+        res.json(roadmaps);
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: "Unable to fetch roadmaps"
+        });
+    }
+});
 app.use((req, res) => {
     res.status(404).json({
         message: "Route not found"
