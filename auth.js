@@ -33,7 +33,8 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
         alert(data.message);
 
         if (response.ok) {
-            window.location.href = "login.html";
+            localStorage.setItem("loggedIn",true)
+            window.location.href = "index.html";
         }
 
     } catch (error) {
