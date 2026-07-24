@@ -34,7 +34,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
 
         if (response.ok) {
             localStorage.setItem("loggedIn",true)
-            window.location.href = "index.html";
+            window.location.href = "Carrer roadmap analyser.html";
         }
 
     } catch (error) {
