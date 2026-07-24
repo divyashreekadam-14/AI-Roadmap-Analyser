@@ -1,122 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-  <title>Career Roadmap Analyzer</title>
-
-  <link rel="stylesheet"
-        href="style.css">
-
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="container">
+<div class="form-container">
+  <h2>Sign Up</h2>
 
-  <h1>Career Roadmap Analyzer</h1>
+  <form id="signupForm">
+    <input type="text" id="username" placeholder="Username" required>
 
-  <p class="subtitle">
-    Analyze your skills and become job-ready
+<input type="email" id="email" placeholder="Email" required>
+
+<input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Sign Up</button>
+    <div class="switch-form">
+  <p>Already have an account ?
+    <a href="Carrer roadmap analyser.html">login</a>
   </p>
-
-
-  <div class="card">
-
-    <!-- SKILLS INPUT -->
-
-    <label>Enter Your Skills</label>
-
-    <input
-      type="text"
-      id="skillsInput"
-      placeholder="Example: HTML, CSS">
-<div id="autocomplete-list"
-class="autocomplete-list"></div>
-    <datalist id="skillSuggestions"></datalist>
-
-
-    <!-- ROLE SELECT -->
-
-    <label>Enter Target Role</label>
-
-<input
-    type="text"
-    id="roleInput"
-    placeholder="Example: Data Analyst">
-
-<button onclick="searchRole()">
-    Search Role
-</button>
-
-<p id="roleStatus"></p>
-    <!-- ANALYZE BUTTON -->
-
-    <button
-      type="button"
-      onclick="analyzeSkills()">
-
-      Analyze Skills
-
-    </button>
-
-  </div>
-
-<!-- RESULT SECTION -->
-
-<div id="result" class="result-card hidden">
-
-    <h3>Recommended Careers</h3>
-    <ul id="careerRecommendations"></ul>
-
-    <br><br>
-
-    <h2>Analysis Result</h2>
-
-    <div class="analysis-box">
-        <h3>Your Skill Analysis</h3>
-        <p id="readiness"></p>
-        <p id="timeline"></p>
-    </div>
-
-    <!-- DONUT CHART -->
-    <canvas id="skillChart"></canvas>
-
-    <!-- FLOWCHART -->
-    <h3>Personalized Flowchart</h3>
-    <div id="flowchart"></div>
-
-   <!-- ACTION BUTTONS -->
-
-
-<div class="action-buttons">
-
-    <button onclick="openJobsPage()">
-        💼 See Jobs for Your Skills
-    </button>
-
-    <button onclick="openAITutor()">
-        🤖 AI Tutor
-    </button>
-
+</div>
+  </form>
 </div>
 
-
 </div>
-
-<!-- CHART JS -->
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-<!-- SCRIPT FILE -->
-
-<script src="script.js"></script>
+<script src="auth.js"></script>
 
 </body>
 </html>

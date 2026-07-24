@@ -232,7 +232,7 @@ if (missingSkills.length > 0) {
 
 // Navigation functions
 function goBack() {
-    window.location.href = "index.html";
+    window.location.href = "Carrer roadmap analyser.html";
 }
 
 function goJobs() {
