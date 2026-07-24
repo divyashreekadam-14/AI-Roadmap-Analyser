@@ -172,7 +172,7 @@ document
 
         const response =
             await fetch(
-                `http://localhost:5000/api/role/${encodeURIComponent(role)}`
+                `https://ai-roadmap-analyser.onrender.com/api/role/${encodeURIComponent(role)}`
             );
 
         if (!response.ok) {
@@ -677,7 +677,7 @@ jobResults.innerHTML =
 
     try {
 
-        const APP_ID = "dcd24e6a";
+        const APP_ID = "dcd24e6a"
         const API_KEY = "8d074d70e3d330621ae1eccc1a42f50a";
 
         const url =
