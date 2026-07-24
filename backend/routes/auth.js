@@ -72,7 +72,7 @@ router.post("/login", async (req, res) => {
         }
 
         res.status(200).json({
-            message: "Login successful",
+            message: "login successful",
             username: user.username
         });
 
@@ -81,7 +81,7 @@ router.post("/login", async (req, res) => {
         console.log(error);
 
         res.status(500).json({
-            message: "Login failed"
+            message: "login failed"
         });
 
     }
